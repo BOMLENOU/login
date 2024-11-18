@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+    <meta http-e<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <quiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connection utilisateur  </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+        }
+
+        .login{
+            border: 1px solid black;
+            width: 400px;
+            height: 550px;
+            color: white;
+            border-radius: 20px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.75) ;
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+            background: url(e-commerce.jpg);
+            margin-top: 20px;
+        }
+        
+        form {
+            display:block;
+            box-sizing: border-box;
+            max-width: 100%;
+            backdrop-filter: brightness(40%);
+            padding: 40px;
+            flex-direction: column;
+            display: flex;
+            gap: 5px;
+             
+        }
+
+        h1{
+            font-weight: normal;
+            font-size: 24px;
+            text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5) ;
+            margin-bottom: 60px;
+        }
+
+        label{
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 2px;
+            padding-left:10px; 
+
+        }
+
+        input{
+            background: rgba(255, 255, 255, 0.3);
+            height: 40px;
+            line-height: 40px;
+            border-radius: 20px;
+            padding: 0px 20px;
+            border: none;margin-bottom: 20px;
+            color: white;
+
+        }
+
+        button{
+            background: rgb(45, 126, 231);
+            height: 40px;
+            line-height: 40px;
+            border-radius: 40px;
+            border: none;
+            margin: 10px 0px ;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+            color: white;
+            font-size: 12px;
+            text-transform: uppercase;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+        button:hover{
+            background-color:rgba(45, 126, 231,0.8); ;
+        }
+        
+        #contener{
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            justify-content: space-around;
+           text-align: center;
+        }
+        img{
+            width: 25px;
+            height: 35px;
+        }
+
+            
+        .contener{
+            display: grid;
+            grid-template-columns:2fr 1fr 2fr;
+            
+              
+        }
+        
+       
+
+         
+
+    </style>
+</head>
+<body>
+    <div class="login">
+          
+            
+        <form id="registrationForm">
+             <h1 id="form-title" >CONNEXION</h1> 
+           
+           
+ <label for="username">Nom d'utilisateur</label>
+            <input type="text" id="username" name="username" aria-label="Nom d'utilisateur" required>
+
+            
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" name="password" required  >
+            <span id="passwordError" style="color: red;font-size: 12px;"></span>
+             <button type="submit" id="submit-button" onclick="redirectTopage()">Se Connecter</button> 
+        
+
+            <div style="text-align: center; margin-top: 20px;">
+                    <div class="contener" >
+                        <div style="background-color: red;height: 2px;width: 100%; "></div>
+                        
+                        <div class="link">OU</div>
+
+                    <div style="background-color: red;height: 2px;width: 100%; "></div>
+                    </div>
+            </div>
+            <p id="Option">se connecter avec :</p>
+            <div id="contener" > 
+                <div class="card"><img src="google.png" alt=""></div>
+            <div class="card"> <img src="face.png" alt=""></div>
+                <div class="card"><img src="x.png" alt=""></div>
+                <div class="card"><img src="in.png" alt=""></div>
+            </div>
+            <div class="form-container"  >
+                <form id="languageForm"  >
+                    <select id="language-select" onchange="changeLanguage()">
+                        <option value="fr">Français</option>
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                        <option value="all">Allemand</option>
+                    </select>
+                </form>
+            </div> 
+        </form>
+    </div>
+    <script>
+        const translations = {
+            fr: {
+                formTitle: "Formulaire d'inscription",
+                usernameLabel: "Nom d'utilisateur",
+                passwordLabel: "Mot de passe",
+                submitButton: "Se Connecter",
+                Option: "Se connecter avec :"
+            },
+            en: {
+                formTitle: "Registration Form",
+                usernameLabel: "Username",
+                passwordLabel: "Password",
+                submitButton: "Log In",
+                Option: "Log in with:"
+            },
+            es: {
+                formTitle: "Formulario de registro",
+                usernameLabel: "Nombre de usuario",
+                passwordLabel: "Contraseña",
+                submitButton: "Iniciar sesión",
+                Option: "Inicia sesión con:"
+            },
+            all: {
+                formTitle: "Anmeldeformular",
+                usernameLabel: "Benutzername",
+                passwordLabel: "Passwort",
+                submitButton: "Einloggen",
+                Option: "Einloggen mit:"
+            }
+        };
+
+        document.getElementById("registrationForm").addEventListener("submit", function(event) {
+            const password = document.getElementById("password");
+            const passwordError = document.getElementById("passwordError");
+
+            if (password.value.length < 8 || !/\d/.test(password.value)) {
+                passwordError.textContent = "Le mot de passe doit contenir au moins 8 caractères et inclure un chiffre.";
+                event.preventDefault();
+            } else {
+                passwordError.textContent = "";
+            }
+        });
+
+        function changeLanguage() {
+            const selectedLanguage = document.getElementById("language-select").value;
+            const translation = translations[selectedLanguage];
+            if (translation) {
+                document.getElementById("form-title").textContent = translation.formTitle;
+                document.querySelector("label[for='username']").textContent = translation.usernameLabel;
+                document.querySelector("label[for='password']").textContent = translation.passwordLabel;
+                document.getElementById("submit-button").textContent = translation.submitButton;
+                document.getElementById("Option").textContent = translation.Option;
+            }
+        }
+
+        
+    </script>
+</body>
+</html>
+
+
+    </script>
+        
+</body>
+</html>
